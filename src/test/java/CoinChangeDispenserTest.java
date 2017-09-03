@@ -58,18 +58,51 @@ public class CoinChangeDispenserTest {
     }
 
     @Test
-    public void when_a_pence_amount_is_passed_the_least_number_of_coins_is_returned(){
-        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(245);
-        Collection<Coin> expectedChange = Arrays.asList(ONE_POUND,ONE_POUND,TWENTY_PENCE,TWENTY_PENCE,FIVE_PENCE);
+    public void when_a_pence_amount_of_25_is_passed_2_coins_are_returned(){
+        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(25);
+        Collection<Coin> expectedChange = Arrays.asList(TWENTY_PENCE,FIVE_PENCE);
         assertThat(actualChange, is(expectedChange));
+    }
 
+    @Test
+    public void when_a_pence_amount_of_27_is_passed_3_coins_are_returned(){
+        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(27);
+        Collection<Coin> expectedChange = Arrays.asList(TWENTY_PENCE,FIVE_PENCE,TWO_PENCE);
+        assertThat(actualChange, is(expectedChange));
+    }
+
+    @Test
+    public void when_a_pence_amount_of_127_is_passed_4_coins_are_returned(){
+        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(127);
+        Collection<Coin> expectedChange = Arrays.asList(ONE_POUND,TWENTY_PENCE,FIVE_PENCE,TWO_PENCE);
+        assertThat(actualChange, is(expectedChange));
+    }
+
+    @Test
+    public void when_a_pence_amount_of_145_is_passed_5_coins_are_returned(){
+        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(146);
+        Collection<Coin> expectedChange = Arrays.asList(ONE_POUND,TWENTY_PENCE,TWENTY_PENCE,FIVE_PENCE,ONE_PENNY);
+        assertThat(actualChange, is(expectedChange));
+    }
+
+    @Test
+    public void when_a_pence_amount_of_185_is_passed_6_coins_are_returned(){
+        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(148);
+        Collection<Coin> expectedChange = Arrays.asList(ONE_POUND,TWENTY_PENCE,TWENTY_PENCE,FIVE_PENCE,TWO_PENCE,ONE_PENNY);
+        assertThat(actualChange, is(expectedChange));
+    }
+
+    @Test
+    public void when_a_pence_amount_of_187_is_passed_7_coins_are_returned(){
+        Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(188);
+        Collection<Coin> expectedChange = Arrays.asList(ONE_POUND, FIFTY_PENCE, TWENTY_PENCE, TEN_PENCE, FIVE_PENCE, TWO_PENCE, ONE_PENNY);
+        assertThat(actualChange, is(expectedChange));
     }
 
     @Test
     public void it_accepts_numbers_up_to_1000000(){
         Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(100000);
         assertThat(actualChange, is(Collections.nCopies(1000, ONE_POUND)));
-
     }
 
 
