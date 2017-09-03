@@ -13,6 +13,6 @@ public class CoinChangeDispenserTest {
     @Test
     public void when_pence_amount_is_equivalent_to_one_of_the_coin_denomination_it_returns_that_coin() {
         CoinChangeDispenser coinChangeDispenser = new CoinChangeDispenser();
-        assertThat(coinChangeDispenser.getOptimalChangeFor(100),is(Arrays.asList(new Coin(100))));
+        assertThat(coinChangeDispenser.getOptimalChangeFor(100),is(Arrays.asList(Coin.ONE_POUND)));
     }
 }
