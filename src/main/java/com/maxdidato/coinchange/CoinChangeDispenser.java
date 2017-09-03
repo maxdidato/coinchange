@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 import static com.maxdidato.coinchange.validator.InputValidator.validate;
@@ -17,7 +18,7 @@ public class CoinChangeDispenser {
 
     private final CoinsContainer coinsContainer;
 
-    public CoinChangeDispenser(CoinsContainer coinsContainer){
+    public CoinChangeDispenser(CoinsContainer coinsContainer) {
         this.coinsContainer = coinsContainer;
     }
 
@@ -45,4 +46,34 @@ public class CoinChangeDispenser {
         }
         return optimalChangeFor;
     }
+
+    public static void main(String[] args) throws IOException {
+        //This implement a rough command line ui to the coin changer.
+        //No validation is implemented here as this is for testing purposes
+        System.out.println("WELCOME TO COIN CHANGE. PRESS Q ANY TIME TO QUIT");
+        while (true) {
+            CoinsContainer coinsContainer = new CoinsContainer("coin-inventory.properties");
+            CoinChangeDispenser coinChangeDispenser = new CoinChangeDispenser(coinsContainer);
+            System.out.println("How many pence you want to change?");
+            Scanner scanner = new Scanner(System.in);
+            String pence = scanner.nextLine();
+            if (pence.toLowerCase().equals("q")) {
+                break;
+            }
+            System.out.println("THE OPTIMAL CHANGE IS\n");
+            int intPence = Integer.parseInt(pence);
+            System.out.println(coinChangeDispenser.getOptimalChangeFor(intPence));
+            try {
+                coinChangeDispenser.getChangeFor(intPence);
+                System.out.println("WE WERE ABLE TO DISPENSE THE COINS:\n");
+            } catch (InsufficientCoinage insufficientCoinage) {
+                System.out.println(insufficientCoinage.getMessage());
+            }
+            System.out.println("COINS COUNT:");
+            System.out.println(coinsContainer.coins);
+        }
+
+
+    }
 }
+

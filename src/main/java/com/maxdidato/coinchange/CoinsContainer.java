@@ -2,7 +2,6 @@ package com.maxdidato.coinchange;
 
 import com.maxdidato.coinchange.exception.InsufficientCoinage;
 import com.maxdidato.coinchange.model.Coin;
-import com.maxdidato.coinchange.validator.FileValidator;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
