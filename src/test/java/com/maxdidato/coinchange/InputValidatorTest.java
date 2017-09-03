@@ -1,5 +1,6 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.validator.InputValidator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

@@ -1,15 +1,20 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.exception.InsufficientCoinage;
 import com.maxdidato.coinchange.testutils.CoinContainerHelper;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.MalformedParametersException;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static com.maxdidato.coinchange.Coin.*;
-import static java.util.Arrays.*;
+import static com.maxdidato.coinchange.model.Coin.*;
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -21,10 +26,28 @@ public class CoinsContainerTest {
     private CoinContainerHelper coinContainerHelper;
     private CoinsContainer coinsContainer;
 
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+
     @Before
     public void setUp() throws IOException {
         coinsContainer = new CoinsContainer(FILE_NAME);
         coinContainerHelper = new CoinContainerHelper().withFileName(FILE_NAME);
+    }
+
+    @Test
+    public void if_the_file_doesnt_exist_an_exception_is_raised() throws IOException, InsufficientCoinage {
+        expectedEx.expect(FileNotFoundException.class);
+        expectedEx.expectMessage("The file for coin storage 'non existing file' doesn't exist");
+        new CoinsContainer("non existing file");
+    }
+
+    @Test
+    public void if_the_file_is_malformed_an_exception_is_raised() throws IOException, InsufficientCoinage {
+        String fileWithMissingValues = coinContainerHelper.createFileWithMissingValues();
+        expectedEx.expect(MalformedParametersException.class);
+        expectedEx.expectMessage("The file for coin storage '"+fileWithMissingValues+"' is malformed");
+        new CoinsContainer(fileWithMissingValues);
     }
 
     @Test
@@ -141,4 +164,13 @@ public class CoinsContainerTest {
         assertThat(coinContainerHelper.getTwoPence(), is(11));
         assertThat(coinContainerHelper.getOnePenny(), is(10));
     }
+
+    @Test
+    public void when_no_more_coins_available_an_exception_is_raised() throws IOException, InsufficientCoinage {
+        coinContainerHelper.withOnePenny(3).flush();
+        expectedEx.expect(InsufficientCoinage.class);
+        expectedEx.expectMessage("There are no more coins of denomination 1");
+        coinsContainer.removeCoins(Arrays.asList(ONE_PENNY,ONE_PENNY,ONE_PENNY,ONE_PENNY));
+    }
+
 }

@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Wither;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 @Setter
@@ -40,6 +37,40 @@ public class CoinContainerHelper {
         fileName = "coin-inventory.properties";
         prop.store(new FileOutputStream(fileName), null);
 
+    }
+
+    public String createFileWithMissingValues() throws IOException {
+        prop.setProperty("2", String.valueOf(twoPence));
+        prop.setProperty("1", String.valueOf(onePenny));
+        String malformedFilename = "/tmp/malformed.properties";
+        prop.store(new FileOutputStream(malformedFilename), null);
+        return malformedFilename;
+    }
+
+    public String createFileWithNonNumericalEntries() throws IOException {
+        prop.setProperty("100", String.valueOf(onePound));
+        prop.setProperty("50", String.valueOf(fiftyPence));
+        prop.setProperty("20", "nonnumeric");
+        prop.setProperty("10", String.valueOf(tenPence));
+        prop.setProperty("5", String.valueOf(fivePence));
+        prop.setProperty("2", String.valueOf(twoPence));
+        prop.setProperty("1", String.valueOf(onePenny));
+        String malformedFilename = "/tmp/malformed.properties";
+        prop.store(new FileOutputStream(malformedFilename), null);
+        return malformedFilename;
+    }
+
+    public String createFileWithNegativeNumbers() throws IOException {
+        prop.setProperty("100", String.valueOf(onePound));
+        prop.setProperty("50", String.valueOf(fiftyPence));
+        prop.setProperty("20", String.valueOf(twentyPence));
+        prop.setProperty("10", String.valueOf(tenPence));
+        prop.setProperty("5", "-1");
+        prop.setProperty("2", String.valueOf(twoPence));
+        prop.setProperty("1", String.valueOf(onePenny));
+        String malformedFilename = "/tmp/malformed.properties";
+        prop.store(new FileOutputStream(malformedFilename), null);
+        return malformedFilename;
     }
 
     public void load() throws IOException {

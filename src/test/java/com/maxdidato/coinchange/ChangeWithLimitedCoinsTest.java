@@ -1,20 +1,20 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.exception.InsufficientCoinage;
+import com.maxdidato.coinchange.model.Coin;
 import com.maxdidato.coinchange.testutils.CoinContainerHelper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 
 import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Properties;
 
-import static com.maxdidato.coinchange.Coin.*;
+import static com.maxdidato.coinchange.model.Coin.*;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

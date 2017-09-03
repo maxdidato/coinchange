@@ -1,4 +1,4 @@
-package com.maxdidato.coinchange;
+package com.maxdidato.coinchange.exception;
 
 public class InsufficientCoinage extends Exception {
 

@@ -1,11 +1,12 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.model.Coin;
 import org.junit.Test;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 
-import static com.maxdidato.coinchange.Coin.*;
+import static com.maxdidato.coinchange.model.Coin.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 

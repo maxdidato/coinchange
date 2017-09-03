@@ -1,12 +1,15 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.exception.InsufficientCoinage;
+import com.maxdidato.coinchange.model.Coin;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import static com.maxdidato.coinchange.InputValidator.validate;
+import static com.maxdidato.coinchange.validator.InputValidator.validate;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Stream.concat;
 

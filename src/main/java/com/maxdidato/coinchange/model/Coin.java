@@ -1,4 +1,4 @@
-package com.maxdidato.coinchange;
+package com.maxdidato.coinchange.model;
 
 import java.security.InvalidParameterException;
 import java.util.Arrays;

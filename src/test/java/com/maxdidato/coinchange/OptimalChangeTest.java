@@ -1,5 +1,6 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.model.Coin;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import static com.maxdidato.coinchange.Coin.*;
+import static com.maxdidato.coinchange.model.Coin.*;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
