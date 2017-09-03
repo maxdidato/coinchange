@@ -6,11 +6,6 @@ import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
 
-import static java.util.Collections.emptyList;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
-
 public class InputValidatorTest {
 
     @Rule

@@ -1,5 +1,5 @@
-import com.maxdidato.coinchange.Coin;
-import com.maxdidato.coinchange.CoinChangeDispenser;
+package com.maxdidato.coinchange;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class CoinChangeDispenserTest {
+public class OptimalChangeTest {
 
 
     private CoinChangeDispenser coinChangeDispenser;
@@ -25,7 +25,7 @@ public class CoinChangeDispenserTest {
 
     @Before
     public void setUp() {
-        coinChangeDispenser = new CoinChangeDispenser();
+        coinChangeDispenser = new CoinChangeDispenser(null);
     }
 
     @Test
@@ -104,6 +104,8 @@ public class CoinChangeDispenserTest {
         Collection<Coin> actualChange = coinChangeDispenser.getOptimalChangeFor(100000);
         assertThat(actualChange, is(Collections.nCopies(1000, ONE_POUND)));
     }
+
+
 
 
 }
