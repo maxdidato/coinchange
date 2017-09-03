@@ -1,5 +1,6 @@
 package com.maxdidato.coinchange;
 
+import com.maxdidato.coinchange.testutils.CoinContainerHelper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -118,29 +119,16 @@ public class ChangeWithLimitedCoinsTest {
 
     @Test
     public void once_the_change_is_erogated_the_remaining_coins_are_updated() throws IOException {
-        Properties prop = new Properties();
-        OutputStream output = null;
-        output = new FileOutputStream("coin-inventory.properties");
+        String fileName = "coin-inventory.properties";
+        CoinContainerHelper coinContainerHelper = new CoinContainerHelper().withFileName(fileName);
+        coinContainerHelper.withOnePound(11).withFiftyPence(24).withTwentyPence(10).withTenPence(9)
+                .withFivePence(100).withTwoPence(11).withOnePenny(10).flush();
 
-        // set the properties value
-        prop.setProperty("100", "11");
-        prop.setProperty("50", "24");
-        prop.setProperty("20", "10");
-        prop.setProperty("10", "9");
-        prop.setProperty("5", "100");
-        prop.setProperty("2", "11");
-        prop.setProperty("1", "10");
-
-        // save properties to project root folder
-        prop.store(output, null);
         coinChangeDispenser.getChangeFor(27);
-        InputStream input = new FileInputStream("coin-inventory.properties");
-
-        // load a properties file
-        prop.load(input);
-        assertThat(prop.getProperty("20"), is("9"));
-        assertThat(prop.getProperty("5"), is("99"));
-        assertThat(prop.getProperty("2"), is("10"));
+        coinContainerHelper.load();
+        assertThat(coinContainerHelper.getTwentyPence(), is(9));
+        assertThat(coinContainerHelper.getFivePence(), is(99));
+        assertThat(coinContainerHelper.getTwoPence(), is(10));
     }
 
 
