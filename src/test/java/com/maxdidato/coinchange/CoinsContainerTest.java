@@ -173,4 +173,21 @@ public class CoinsContainerTest {
         coinsContainer.removeCoins(Arrays.asList(ONE_PENNY,ONE_PENNY,ONE_PENNY,ONE_PENNY));
     }
 
+    @Test
+    public void when_no_more_coins_of_a_denomination_are_missing_nothing_is_written_on_the_file() throws IOException, InsufficientCoinage {
+        coinContainerHelper.withOnePound(11).withFiftyPence(24).withTwentyPence(10).withTenPence(9)
+                .withFivePence(100).withTwoPence(11).withOnePenny(2).flush();
+        expectedEx.expect(InsufficientCoinage.class);
+        expectedEx.expectMessage("There are no more coins of denomination 1");
+        coinsContainer.removeCoins(Arrays.asList(ONE_PENNY,ONE_PENNY,ONE_PENNY,ONE_PENNY,ONE_POUND,FIFTY_PENCE,
+                                                TWENTY_PENCE,TEN_PENCE,FIVE_PENCE,TWENTY_PENCE));
+        assertThat(coinContainerHelper.getOnePound(), is(11));
+        assertThat(coinContainerHelper.getFiftyPence(), is(24));
+        assertThat(coinContainerHelper.getTwentyPence(), is(10));
+        assertThat(coinContainerHelper.getTenPence(), is(9));
+        assertThat(coinContainerHelper.getFivePence(), is(100));
+        assertThat(coinContainerHelper.getTwoPence(), is(11));
+        assertThat(coinContainerHelper.getOnePenny(), is(2));
+    }
+
 }
