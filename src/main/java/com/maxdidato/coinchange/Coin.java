@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Coin {
+    ONE_POUND(100), FIFTY_PENCE(50), TWENTY_PENCE(20), TEN_PENCE(10),
+    FIVE_PENCE(5), THREE_PENCE(3), TWO_PENCE(2), ONE_PENNY(1);
 
-    ONE_PENNY(1), TWO_PENCE(2), THREE_PENCE(3), FIVE_PENCE(5),
-    TEN_PENCE(10), TWENTY_PENCE(20), FIFTY_PENCE(50), ONE_POUND(100);
 
     private int denomination;
 
@@ -26,5 +26,6 @@ public enum Coin {
         }
         return foundCoin.get();
     }
+
 
 }
