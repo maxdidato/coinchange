@@ -12,15 +12,17 @@ public class CoinsContainer {
         this.filename = filename;
     }
 
-    public void removeCoins(Collection<Coin> optimalChangeFor) throws IOException {
-        coins.load(new FileInputStream(this.filename));
-        optimalChangeFor.forEach(c -> {
-                    String denomination = String.valueOf(c.getDenomination());
-                    String oldValue = coins.getProperty(denomination);
-                    coins.put(denomination, String.valueOf(Integer.valueOf(oldValue) - 1));
-                }
-
-        );
-        coins.store(new FileOutputStream(filename), null);
+    public void removeCoins(Collection<Coin> coins) throws IOException, InsufficientCoinage {
+        this.coins.load(new FileInputStream(this.filename));
+        for (Coin c : coins) {
+            String denomination = String.valueOf(c.getDenomination());
+            String oldValue = this.coins.getProperty(denomination);
+            String newValue = String.valueOf(Integer.valueOf(oldValue) - 1);
+            if (Integer.valueOf(newValue) < 0) {
+                throw new InsufficientCoinage(String.format("There are no more coins of denomination %s", denomination));
+            }
+            this.coins.put(denomination, newValue);
+        }
+        this.coins.store(new FileOutputStream(filename), null);
     }
 }

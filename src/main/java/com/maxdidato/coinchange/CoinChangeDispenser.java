@@ -33,7 +33,7 @@ public class CoinChangeDispenser {
         return Arrays.stream(Coin.values()).filter(c -> c.getDenomination() <= pence).findFirst().get();
     }
 
-    public Collection<Coin> getChangeFor(int pence)  {
+    public Collection<Coin> getChangeFor(int pence) throws InsufficientCoinage {
         Collection<Coin> optimalChangeFor = getOptimalChangeFor(pence);
         try {
             coinsContainer.removeCoins(optimalChangeFor);
