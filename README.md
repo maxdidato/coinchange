@@ -9,4 +9,4 @@ The implementation uses a greedy algorithm for the selection of the best change.
 git clone in the favourite directory and then cd into it.  The run the following commands using
 a JAVA 8 JVM
   - mvn clean package
-  - java -jar <generated-jar> 
+  - java -jar [generated-jar]
